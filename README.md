@@ -32,13 +32,18 @@ Predict Instagram **60-day engagement rate** using a 🌲 **Random Forest Regres
 ---
 
 ## 🚀 Usage
-### 1.Clone the repository:
+
+### 1. Clone the repository
+```bash
 git clone https://github.com/HiruniWijendrasinhe/instagram-engagement-predictor.git
 cd instagram-engagement-predictor
+```bash
 ###2.Install dependencies:
 pip install -r requirements.txt
+```bash
 ###3.Run the FastAPI app:
 uvicorn main:app --reload
+```bash
 ###4.Test the API:
 http://127.0.0.1:8000/docs
 
