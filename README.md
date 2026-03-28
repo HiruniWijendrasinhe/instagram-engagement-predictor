@@ -1,93 +1,104 @@
-# 📸 Instagram Engagement Predictor
+# Instagram Engagement Predictor
 
-Predict Instagram **60-day engagement rate** using a 🌲 **Random Forest Regressor** with automated preprocessing, feature engineering, and a ⚡ **FastAPI API** for real-time predictions. Now with improved error handling for robust API usage.
+FastAPI web app for predicting Instagram engagement from post-level features using two trained models:
 
----
+- XGBoost
+- Random Forest
 
-## 🛠 Features
+The UI lets you submit one feature set and run prediction with either model using separate buttons.
 
-- ✅ Handles missing values, duplicates, and outliers
-- 📊 Creates normalized features like `eng_per_follower`
-- 🔄 Applies **log transformation** to reduce skewness in target
-- 🏗 Encodes categorical variables (`channel_info`, `country`)
-- 🌲 Uses **Random Forest** with **GridSearchCV** for hyperparameter tuning
-- ⚡ Provides a **FastAPI endpoint** for real-time prediction
-- 🛡️ Returns clear error messages for invalid or incomplete input
+## Current Features
 
----
+- Dual-model inference from the same form input
+- FastAPI endpoints for model-specific prediction
+- Dropdowns for categorical features (`media_type`, `traffic_source`, `content_category`)
+- Raw feature input flow (no derived feature calculations in the app)
+- Internal model compatibility fields: `manual_sum=0` and `diff=0`
 
-## 🧩 Input Schema
+## Training Approach
+
+When training on the dataset, use a validation-first workflow:
+
+- Use cross-validation ( K-Fold) to estimate model stability.
+- Use `GridSearchCV` to tune hyperparameters for both Random Forest and XGBoost.
+- Save the best estimator from grid search as the final `.pkl` model artifact used by this app.
+
+## Model Files
+
+The backend loads these files:
+
+- XGBoost: `final_model_xgboost_all_features.pkl`
+- Random Forest: tries `final_model__all_features.pkl`, falls back to `final_model_instagram_all_features.pkl`
+
+## Input Schema
+
+Request body for prediction endpoints:
 
 ```json
 {
-  "channel_info": "string",
-  "influence_score": 0,
-  "posts": 0,
-  "followers": 0,
-  "avg_likes": 0,
-  "new_post_avg_like": 0,
-  "total_likes": 0,
-  "country": "string"
+  "media_type": "Carousel",
+  "likes": 12000,
+  "comments": 2000,
+  "shares": 1000,
+  "saves": 3000,
+  "reach": 200000,
+  "impressions": 250000,
+  "caption_length": 120,
+  "hashtags_count": 15,
+  "followers_gained": 50,
+  "traffic_source": "Explore",
+  "content_category": "Fitness",
+  "share_rate": 0.4,
+  "save_rate": 1.2,
+  "engagement_score": 56000
 }
 ```
 
----
+### Categorical Options
 
-## 🚀 Usage
+- `media_type`: `Carousel`, `Video`, `Reel`, `Photo`
+- `traffic_source`: `Home Feed`, `Hashtags`, `Reels Feed`, `External`, `Profile`, `Explore`
+- `content_category`: `Photography`, `Fashion`, `Technology`, `Lifestyle`, `Food`, `Fitness`, `Music`, `Travel`, `Beauty`, `Comedy`
 
-### 1. Clone the repository
-```bash
-git clone https://github.com/your-username/instagram-engagement-predictor.git
-cd instagram-engagement-predictor
+## API Endpoints
+
+- `POST /predict`
+  - Default model: `xgboost`
+- `POST /predict/xgboost`
+- `POST /predict/random_forest`
+
+Example success response:
+
+```json
+{
+  "model": "xgboost",
+  "predicted_engagement": 10.2461
+}
 ```
 
-### 2. Install dependencies
+## Run Locally
+
+1. Install dependencies:
+
 ```bash
 pip install -r requirements.txt
 ```
 
-### 3. Run the FastAPI app
+2. Start the app:
+
 ```bash
 uvicorn app:app --reload
 ```
 
-### 4. Test the API
-Open your browser at:
-```
-http://127.0.0.1:8000/docs
-```
+3. Open:
 
----
+- App UI: `http://127.0.0.1:8000/`
+- API docs: `http://127.0.0.1:8000/docs`
 
-## 📈 Model Performance
+## Tech Stack
 
-- **Best Hyperparameters:**
-  - `n_estimators = 200`
-  - `max_depth = None`
-  - `min_samples_split = 2`
-  - `min_samples_leaf = 1`
-
-- **Best CV R²:** 0.931
-
-- **Training Metrics:**
-  - R² = 0.992
-  - MAE = 0.033
-  - MSE = 0.004
-  - RMSE = 0.060
-
-- **Test Metrics:**
-  - R² = 0.981
-  - MAE = 0.063
-  - MSE = 0.0073
-  - RMSE = 0.085
-
----
-
-## 🔧 Technologies Used
-
-- Python 🐍
-- scikit-learn 🌲
-- pandas 📊
-- NumPy 🔢
-- FastAPI ⚡
-- joblib 💾
+- Python
+- FastAPI
+- pandas
+- scikit-learn
+- XGBoost model artifact (loaded via joblib)
