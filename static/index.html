@@ -11,16 +11,18 @@
 
 <style>
 :root {
-    --bg-top: #fff2e5;
-    --bg-bottom: #ffc89f;
-    --card-bg: #fffdfb;
+    --bg-top: #fff7ef;
+    --bg-bottom: #ffd9bd;
+    --panel: #fffef9;
+    --hero-top: #fff9f1;
+    --hero-bottom: #ffe6cf;
     --text-main: #2f231b;
     --text-soft: #7c5a47;
-    --accent: #ff6b35;
-    --accent-2: #ff9f1c;
-    --line: #f2d8c6;
-    --success-bg: #fff4df;
-    --error-bg: #ffe5e7;
+    --line: #f0d7c5;
+    --accent: #a74c1f;
+    --accent-2: #8f3f16;
+    --accent-soft: #fff0e3;
+    --danger: #7a2833;
 }
 
 * { box-sizing: border-box; }
@@ -31,117 +33,211 @@ body {
     font-family: 'Manrope', sans-serif;
     color: var(--text-main);
     background:
-        radial-gradient(circle at 10% 15%, rgba(255, 216, 182, 0.8), transparent 28%),
-        radial-gradient(circle at 85% 8%, rgba(255, 188, 145, 0.7), transparent 30%),
-        linear-gradient(140deg, var(--bg-top), var(--bg-bottom));
+        radial-gradient(circle at 10% 12%, rgba(255, 216, 182, 0.55), transparent 30%),
+        radial-gradient(circle at 86% 8%, rgba(255, 193, 150, 0.5), transparent 32%),
+        linear-gradient(145deg, var(--bg-top), var(--bg-bottom));
     display: flex;
     justify-content: center;
-    padding: 30px 16px;
+    padding: 26px 16px;
 }
 
-/* LAYOUT */
 .page-wrap {
     width: min(1120px, 100%);
     display: grid;
-    gap: 20px;
+    gap: 18px;
 }
 
 .app-shell {
-    background: rgba(255,255,255,0.45);
-    backdrop-filter: blur(8px);
-    border-radius: 28px;
+    background: rgba(255, 255, 255, 0.44);
+    backdrop-filter: blur(9px);
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    border-radius: 26px;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    grid-template-columns: 0.95fr 1.05fr;
     overflow: hidden;
+    box-shadow: 0 20px 70px rgba(95, 52, 32, 0.14);
 }
 
-/* HERO */
 .hero {
     padding: 34px;
-    background: linear-gradient(160deg,#fff8f1,#ffe9d6,#ffd5b4);
+    background: linear-gradient(165deg, var(--hero-top), var(--hero-bottom));
+    display: grid;
+    gap: 18px;
 }
 
 .brand {
     display: flex;
-    gap: 10px;
+    gap: 12px;
     align-items: center;
 }
 
+.brand-title {
+    display: grid;
+    gap: 2px;
+}
+
+.brand-title strong {
+    letter-spacing: 0.2px;
+}
+
+.brand-title span {
+    font-size: 0.82rem;
+    color: var(--text-soft);
+}
+
 .hero h1 {
-    margin: 10px 0;
+    margin: 0;
+    line-height: 1.2;
+    font-size: clamp(1.75rem, 2.6vw, 2.3rem);
 }
 
-/* FORM PANEL */
+.hero p {
+    margin: 0;
+    color: var(--text-soft);
+    line-height: 1.5;
+}
+
+.hero-highlights {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 10px;
+}
+
+.chip {
+    background: rgba(255, 255, 255, 0.74);
+    border: 1px solid rgba(167, 76, 31, 0.22);
+    border-radius: 12px;
+    padding: 8px 10px;
+    text-align: center;
+}
+
+.chip b {
+    display: block;
+    font-size: 1rem;
+}
+
+.chip span {
+    font-size: 0.78rem;
+    color: var(--text-soft);
+}
+
 .panel {
-    padding: 34px 30px;
-    background: var(--card-bg);
+    padding: 32px 30px;
+    background: var(--panel);
 }
 
-/* GRID */
+.panel-head {
+    margin-bottom: 16px;
+}
+
+.panel h2 {
+    margin: 0;
+    font-size: 1.38rem;
+}
+
+.panel-sub {
+    margin: 6px 0 0;
+    color: var(--text-soft);
+    font-size: 0.95rem;
+}
+
 .field-grid {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 16px;
+    gap: 12px;
 }
 
 .field {
     display: flex;
     flex-direction: column;
+    gap: 7px;
 }
 
 .field.full {
     grid-column: 1 / -1;
 }
 
-/* INPUT */
+label {
+    font-size: 0.83rem;
+    font-weight: 700;
+    color: #6b4b37;
+}
+
 input, select {
-    padding: 10px;
+    padding: 11px 12px;
     border-radius: 11px;
     border: 1px solid var(--line);
+    background: #ffffff;
+    color: var(--text-main);
+    font: inherit;
 }
 
 input:focus, select:focus {
     outline: none;
-    border-color: #f59f57;
-}
-
-/* BUTTON IMPROVED */
-button {
-    width: 100%;
-    border: none;
-    border-radius: 14px;
-    padding: 13px;
-    font-weight: 800;
-    color: white;
-    cursor: pointer;
-    background: linear-gradient(135deg, #ff6b35, #ff9f1c);
-    transition: all 0.25s ease;
-    box-shadow: 0 10px 25px rgba(255,106,52,0.35);
-}
-
-button:hover {
-    transform: translateY(-2px);
-}
-
-button:active {
-    transform: scale(0.98);
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(167, 76, 31, 0.18);
 }
 
 .model-actions {
     display: grid;
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    margin-top: 20px;
+    gap: 10px;
+    margin-top: 18px;
 }
 
-.model-btn.secondary {
-    background: linear-gradient(135deg,#c85b2d,#ea7f35);
+.model-btn {
+    border-radius: 12px;
+    padding: 11px;
+    font-weight: 800;
+    color: #6a4a36;
+    cursor: pointer;
+    background: #fff2e6;
+    border: 1px solid #f3d8c3;
+    transition: 0.2s ease;
 }
 
-/* RESULT IMPROVED */
+.model-btn:hover {
+    transform: translateY(-1px);
+}
+
+.model-btn.active {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    border-color: transparent;
+    color: white;
+    box-shadow: 0 8px 20px rgba(143, 63, 22, 0.32);
+}
+
+.submit-btn {
+    width: 100%;
+    border: none;
+    border-radius: 13px;
+    padding: 13px;
+    margin-top: 13px;
+    font-weight: 800;
+    color: white;
+    cursor: pointer;
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    transition: all 0.25s ease;
+    box-shadow: 0 10px 24px rgba(143, 63, 22, 0.28);
+}
+
+.submit-btn:hover {
+    transform: translateY(-2px);
+}
+
+.submit-btn:active {
+    transform: scale(0.99);
+}
+
+.submit-btn:disabled {
+    opacity: 0.75;
+    cursor: not-allowed;
+    transform: none;
+}
+
 .result {
     display: none;
-    margin-top: 18px;
+    margin-top: 14px;
     padding: 18px;
     border-radius: 14px;
     text-align: center;
@@ -150,19 +246,45 @@ button:active {
 }
 
 .result.success {
-    background: linear-gradient(135deg,#fff4df,#ffe8c7);
-    color: #7a4a1f;
+    background: linear-gradient(135deg, #fff3e5, #ffe6cd);
+    color: #8a4f1f;
 }
 
 .result.error {
-    background: linear-gradient(135deg,#ffe5e7,#ffd6d9);
-    color: #8d2f3b;
+    background: linear-gradient(135deg, #ffe5e7, #ffd8dc);
+    color: var(--danger);
 }
 
 .result span {
     display: block;
     font-size: 1.6rem;
     margin-top: 8px;
+}
+
+@media (max-width: 960px) {
+    .app-shell {
+        grid-template-columns: 1fr;
+    }
+
+    .hero {
+        order: 2;
+    }
+
+    .panel {
+        order: 1;
+    }
+}
+
+@media (max-width: 680px) {
+    .field-grid,
+    .hero-highlights {
+        grid-template-columns: 1fr;
+    }
+
+    .hero,
+    .panel {
+        padding: 22px;
+    }
 }
 
 @keyframes fadeIn {
@@ -181,60 +303,82 @@ button:active {
 <!-- HERO -->
 <section class="hero">
     <div class="brand">
-        <img src="/static/assets/logo.svg" width="50">
-        <strong>EngageVision Studio</strong>
+        <img src="/static/assets/logo.svg" width="50" alt="EngageVision logo">
+        <div class="brand-title">
+            <strong>EngageVision Studio</strong>
+            <span>Data-Driven Content Strategy</span>
+        </div>
     </div>
     <h1>Predict engagement before your next post.</h1>
-    <p>Use your trained ML model to estimate engagement instantly.</p>
-    <img src="/static/assets/hero-analytics.svg" style="width:100%; border-radius:16px;">
+    <p>Run live forecasts from your trained models and decide what to post with confidence, not guesswork.</p>
+    <div class="hero-highlights">
+        <div class="chip"><b>2 Models</b><span>XGBoost + RF</span></div>
+        <div class="chip"><b>Live API</b><span>Instant response</span></div>
+        <div class="chip"><b>Creator Lens</b><span>Post-level signals</span></div>
+    </div>
+    <img src="/static/assets/hero-analytics.svg" style="width:100%; border-radius:16px;" alt="Analytics dashboard illustration">
 </section>
 
 <!-- FORM -->
 <section class="panel">
-    <h2>Instagram Engagement Predictor</h2>
+    <div class="panel-head">
+        <h2>Instagram Engagement Predictor</h2>
+        <p class="panel-sub">Fill your post metrics, choose a model, and generate a score.</p>
+    </div>
 
 <form id="predictForm">
 <div class="field-grid">
 
-<select name="media_type">
+<div class="field full">
+<label for="media_type">Media Type</label>
+<select id="media_type" name="media_type">
 <option>Carousel</option>
 <option>Video</option>
 <option>Reel</option>
 <option>Photo</option>
 </select>
+</div>
 
-<input name="likes" type="number" placeholder="Likes">
-<input name="comments" type="number" placeholder="Comments">
-<input name="shares" type="number" placeholder="Shares">
-<input name="saves" type="number" placeholder="Saves">
-<input name="reach" type="number" placeholder="Reach">
-<input name="impressions" type="number" placeholder="Impressions">
-<input name="caption_length" type="number" placeholder="Caption Length">
-<input name="hashtags_count" type="number" placeholder="Hashtags">
-<input name="followers_gained" type="number" placeholder="Followers Gained">
-<input name="share_rate" type="number" placeholder="Share Rate">
-<input name="save_rate" type="number" placeholder="Save Rate">
-<input name="engagement_score" type="number" placeholder="Engagement Score">
+<div class="field"><label for="likes">Likes</label><input id="likes" name="likes" type="number" min="0" placeholder="e.g. 1240"></div>
+<div class="field"><label for="comments">Comments</label><input id="comments" name="comments" type="number" min="0" placeholder="e.g. 74"></div>
+<div class="field"><label for="shares">Shares</label><input id="shares" name="shares" type="number" min="0" placeholder="e.g. 31"></div>
+<div class="field"><label for="saves">Saves</label><input id="saves" name="saves" type="number" min="0" placeholder="e.g. 120"></div>
+<div class="field"><label for="reach">Reach</label><input id="reach" name="reach" type="number" min="0" placeholder="e.g. 15800"></div>
+<div class="field"><label for="impressions">Impressions</label><input id="impressions" name="impressions" type="number" min="0" placeholder="e.g. 24200"></div>
+<div class="field"><label for="caption_length">Caption Length</label><input id="caption_length" name="caption_length" type="number" min="0" placeholder="characters"></div>
+<div class="field"><label for="hashtags_count">Hashtags Count</label><input id="hashtags_count" name="hashtags_count" type="number" min="0" placeholder="e.g. 9"></div>
+<div class="field"><label for="followers_gained">Followers Gained</label><input id="followers_gained" name="followers_gained" type="number" min="0" placeholder="e.g. 58"></div>
+<div class="field"><label for="share_rate">Share Rate</label><input id="share_rate" name="share_rate" type="number" step="any" min="0" placeholder="e.g. 0.12"></div>
+<div class="field"><label for="save_rate">Save Rate</label><input id="save_rate" name="save_rate" type="number" step="any" min="0" placeholder="e.g. 0.26"></div>
+<div class="field"><label for="engagement_score">Engagement Score</label><input id="engagement_score" name="engagement_score" type="number" step="any" min="0" placeholder="e.g. 4.8"></div>
 
-<select name="traffic_source" class="full">
+<div class="field full">
+<label for="traffic_source">Traffic Source</label>
+<select id="traffic_source" name="traffic_source">
 <option>Explore</option>
 <option>Home Feed</option>
 <option>Reels Feed</option>
 </select>
+</div>
 
-<select name="content_category" class="full">
+<div class="field full">
+<label for="content_category">Content Category</label>
+<select id="content_category" name="content_category">
 <option>Fitness</option>
 <option>Fashion</option>
 <option>Technology</option>
 <option>Travel</option>
 </select>
+</div>
 
 </div>
 
 <div class="model-actions">
-<button type="submit" data-model="xgboost">XGBoost</button>
-<button type="submit" class="model-btn secondary" data-model="random_forest">Random Forest</button>
+<button type="button" class="model-btn active" data-model="xgboost">XGBoost</button>
+<button type="button" class="model-btn" data-model="random_forest">Random Forest</button>
 </div>
+
+<button id="predictBtn" class="submit-btn" type="submit">Predict Engagement</button>
 
 </form>
 
@@ -247,45 +391,54 @@ button:active {
 <script>
 let selectedModel = 'xgboost';
 
-document.querySelectorAll("button").forEach(btn=>{
-    btn.addEventListener("click",()=>{
+document.querySelectorAll(".model-btn").forEach(btn => {
+    btn.addEventListener("click", () => {
         selectedModel = btn.dataset.model;
+        document.querySelectorAll(".model-btn").forEach(item => item.classList.remove("active"));
+        btn.classList.add("active");
     });
 });
 
-document.getElementById("predictForm").addEventListener("submit", async function(e){
+document.getElementById("predictForm").addEventListener("submit", async function(e) {
     e.preventDefault();
 
     const form = e.target;
     const data = Object.fromEntries(new FormData(form).entries());
     const resultDiv = document.getElementById("result");
+    const submitBtn = document.getElementById("predictBtn");
 
-    try{
-        const res = await fetch(`/predict/${selectedModel}`,{
-            method:"POST",
-            headers:{"Content-Type":"application/json"},
+    submitBtn.disabled = true;
+    submitBtn.textContent = "Predicting...";
+
+    try {
+        const res = await fetch(`/predict/${selectedModel}`, {
+            method: "POST",
+            headers: {"Content-Type": "application/json"},
             body: JSON.stringify(data)
         });
 
         const result = await res.json();
 
-        resultDiv.style.display="block";
+        resultDiv.style.display = "block";
 
-        if(result.predicted_engagement){
-            resultDiv.className="result success";
+        if (result.predicted_engagement !== undefined && result.predicted_engagement !== null) {
+            resultDiv.className = "result success";
             resultDiv.innerHTML = `
                 ${selectedModel.toUpperCase()} Prediction
                 <span>${Number(result.predicted_engagement).toFixed(4)}</span>
             `;
         } else {
-            resultDiv.className="result error";
+            resultDiv.className = "result error";
             resultDiv.innerText = result.error;
         }
 
-    } catch(err){
-        resultDiv.style.display="block";
-        resultDiv.className="result error";
+    } catch (err) {
+        resultDiv.style.display = "block";
+        resultDiv.className = "result error";
         resultDiv.innerText = err.message;
+    } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Predict Engagement";
     }
 });
 </script>

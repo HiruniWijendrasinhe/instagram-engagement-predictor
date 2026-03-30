@@ -26,10 +26,20 @@ def load_first_existing_model(candidates: list[str], model_label: str):
 
 models = {
     "xgboost": load_first_existing_model(
-        ["final_model_xgboost_all_features.pkl"], "xgboost"
+        [
+            "final_model_xgboost_all_features.pkl",
+            "model/final_model_xgboost_all_features.pkl",
+            "models/final_model_xgboost_all_features.pkl",
+        ],
+        "xgboost",
     ),
     "random_forest": load_first_existing_model(
-        ["final_model__all_features.pkl", "final_model_instagram_all_features.pkl"],
+        [
+            "final_model__all_features.pkl",
+            "final_model_instagram_all_features.pkl",
+            "model/final_model_instagram_all_features.pkl",
+            "models/final_model_instagram_all_features.pkl",
+        ],
         "random_forest",
     ),
 }
